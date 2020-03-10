@@ -8,5 +8,6 @@ const routes = new Router();
 routes.post('/sessions', SessionController.store);
 
 routes.post('/recipients', RecipientController.store);
+routes.put('/recipients/:id', RecipientController.update);
 
 export default routes;

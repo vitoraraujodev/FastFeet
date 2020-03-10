@@ -21,6 +21,36 @@ class RecipientController {
 
     return res.json(recipient);
   }
+
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+      rua: Yup.string(),
+      numero: Yup.number(),
+      complemento: Yup.string(),
+      estado: Yup.string(),
+      cidade: Yup.string(),
+      cep: Yup.string(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation failed.' });
+    }
+
+    const recipient = await Recipient.findByPk(req.params.id);
+
+    const {
+      name,
+      rua,
+      numero,
+      complemento,
+      estadom,
+      cidade,
+      cep,
+    } = await recipient.update(req.body);
+
+    return res.json({ name, rua, numero, complemento, estadom, cidade, cep });
+  }
 }
 
 export default new RecipientController();
