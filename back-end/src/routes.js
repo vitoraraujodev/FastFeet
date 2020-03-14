@@ -25,7 +25,10 @@ routes.post('/deliverymen', authMiddleware, DeliverymanController.store);
 routes.put('/deliverymen/:id', authMiddleware, DeliverymanController.update);
 routes.delete('/deliverymen/:id', authMiddleware, DeliverymanController.delete);
 
+routes.get('/deliveries', authMiddleware, DeliveryController.index);
 routes.post('/deliveries', authMiddleware, DeliveryController.store);
+routes.put('/deliveries/:id', authMiddleware, DeliveryController.update);
+routes.delete('/deliveries/:id', authMiddleware, DeliveryController.delete);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
