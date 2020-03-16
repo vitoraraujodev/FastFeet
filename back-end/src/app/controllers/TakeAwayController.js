@@ -1,8 +1,21 @@
 import * as Yup from 'yup';
 import { format } from 'date-fns';
+
 import Delivery from '../models/Delivery';
 
 class TakeAwayController {
+  // Listagem de encomendas a serem entregues pelo entregador
+  async index(req, res) {
+    const { id } = req.params; //eslint-disable-line
+
+    const deliveries = await Delivery.findAll({
+      where: { canceled_at: null, start_date: null, deliveryman_id: id },
+    });
+
+    return res.json(deliveries);
+  }
+
+  // Registra uma nova encomenda
   async store(req, res) {
     const schema = Yup.object().shape({
       deliveryman_id: Yup.number().required(),

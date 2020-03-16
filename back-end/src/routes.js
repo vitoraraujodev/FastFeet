@@ -32,8 +32,10 @@ routes.post('/deliveries', authMiddleware, DeliveryController.store);
 routes.put('/deliveries/:id', authMiddleware, DeliveryController.update);
 routes.delete('/deliveries/:id', authMiddleware, DeliveryController.delete);
 
+routes.get('/deliveryman/:id/takeaway', TakeAwayController.index);
 routes.post('/takeaway', TakeAwayController.store);
 
+routes.get('/deliveryman/:id/deliveries', ArrivalController.index);
 routes.post('/arrival', ArrivalController.store);
 
 routes.post('/files', upload.single('file'), FileController.store);

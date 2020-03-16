@@ -1,7 +1,21 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
+
 import Delivery from '../models/Delivery';
 
 class ArrivalController {
+  // Listagem de encomendas que já foram entregues pelo entregador
+  async index(req, res) {
+    const { id } = req.params; //eslint-disable-line
+
+    const deliveries = await Delivery.findAll({
+      where: { end_date: { [Op.ne]: null }, deliveryman_id: id },
+    });
+
+    return res.json(deliveries);
+  }
+
+  // Registro de conclusão de entrega
   async store(req, res) {
     const schema = Yup.object().shape({
       deliveryman_id: Yup.number().required(),
