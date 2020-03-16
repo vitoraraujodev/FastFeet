@@ -22,10 +22,10 @@ routes.post('/sessions', SessionController.store);
 routes.post('/recipients', authMiddleware, RecipientController.store);
 routes.put('/recipients/:id', authMiddleware, RecipientController.update);
 
-routes.get('/deliverymen', authMiddleware, DeliverymanController.index);
-routes.post('/deliverymen', authMiddleware, DeliverymanController.store);
-routes.put('/deliverymen/:id', authMiddleware, DeliverymanController.update);
-routes.delete('/deliverymen/:id', authMiddleware, DeliverymanController.delete);
+routes.get('/deliveryman', authMiddleware, DeliverymanController.index);
+routes.post('/deliveryman', authMiddleware, DeliverymanController.store);
+routes.put('/deliveryman/:id', authMiddleware, DeliverymanController.update);
+routes.delete('/deliveryman/:id', authMiddleware, DeliverymanController.delete);
 
 routes.get('/deliveries', authMiddleware, DeliveryController.index);
 routes.post('/deliveries', authMiddleware, DeliveryController.store);
