@@ -11,6 +11,7 @@ import RecipientController from './app/controllers/RecipientController';
 import DeliverymanController from './app/controllers/DeliverymanController';
 import DeliveryController from './app/controllers/DeliveryController';
 import TakeAwayController from './app/controllers/TakeAwayController';
+import ArrivalController from './app/controllers/ArrivalController';
 
 const upload = multer(multerConfig);
 
@@ -32,6 +33,8 @@ routes.put('/deliveries/:id', authMiddleware, DeliveryController.update);
 routes.delete('/deliveries/:id', authMiddleware, DeliveryController.delete);
 
 routes.post('/takeaway', TakeAwayController.store);
+
+routes.post('/arrival', ArrivalController.store);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
