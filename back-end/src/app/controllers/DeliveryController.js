@@ -4,6 +4,8 @@ import Deliveryman from '../models/Deliveryman';
 import Recipient from '../models/Recipient';
 import File from '../models/File';
 
+import Mail from '../../lib/Mail';
+
 class DeliveryController {
   async index(req, res) {
     const delivery = await Delivery.findAll({
@@ -52,6 +54,14 @@ class DeliveryController {
 
     const delivery = await Delivery.create(req.body);
 
+    const deliveryman = await Deliveryman.findByPk(req.body.deliveryman_id);
+
+    await Mail.sendMail({
+      to: `${delivery.name} <${deliveryman.email}>`,
+      subject: 'Nova entrega',
+      text: 'Você tem um produto para entrega.',
+    });
+
     return res.json(delivery);
   }
 
@@ -68,11 +78,9 @@ class DeliveryController {
 
     const delivery = await Delivery.findByPk(req.params.id);
 
-    const { product, deliveryman_id, recipient_id } = await delivery.update(
-      req.body
-    );
+    const newDelivery = await delivery.update(req.body);
 
-    return res.json({ product, deliveryman_id, recipient_id });
+    return res.json(newDelivery);
   }
 
   async delete(req, res) {
