@@ -13,6 +13,7 @@ import DeliveryController from './app/controllers/DeliveryController';
 import TakeAwayController from './app/controllers/TakeAwayController';
 import ArrivalController from './app/controllers/ArrivalController';
 import DeliveryProblemController from './app/controllers/DeliveryProblemController';
+import DistributorProblemController from './app/controllers/DistributorProblemController';
 
 const upload = multer(multerConfig);
 
@@ -39,7 +40,19 @@ routes.post('/takeaway', TakeAwayController.store);
 routes.get('/deliveryman/:id/deliveries', ArrivalController.index);
 routes.post('/arrival', ArrivalController.store);
 
+routes.get('/delivery/:id/problems', DeliveryProblemController.index);
 routes.post('/delivery/:id/problems', DeliveryProblemController.store);
+
+routes.get(
+  '/delivery/problems',
+  authMiddleware,
+  DistributorProblemController.index
+);
+routes.delete(
+  '/problem/:id/cancel-delivery',
+  authMiddleware,
+  DistributorProblemController.delete
+);
 
 routes.post('/files', upload.single('file'), FileController.store);
 

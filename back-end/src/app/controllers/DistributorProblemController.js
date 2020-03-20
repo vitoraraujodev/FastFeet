@@ -1,13 +1,10 @@
-import * as Yup from 'yup';
 import DeliveryProblem from '../models/DeliveryProblem';
 import Delivery from '../models/Delivery';
 
 class DeliveryProblemController {
+  // Listagem de Problemas na Entrega por parte da distribuidora
   async index(req, res) {
-    const { id } = req.params;
-
     const delivery_problems = await DeliveryProblem.findAll({ //eslint-disable-line
-      where: { delivery_id: id },
       attributes: ['id', 'description'],
       include: [
         {
@@ -28,24 +25,15 @@ class DeliveryProblemController {
     return res.json(delivery_problems);
   }
 
-  async store(req, res) {
-    const schema = Yup.object().shape({
-      description: Yup.string().required(),
-    });
+  // Cancelamento de Entrega por parte da Distribuidora
+  async delete(req, res) {
+    const delivery_problem = await DeliveryProblem.findByPk(req.params.id); //eslint-disable-line
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed.' });
-    }
+    const delivery = await Delivery.findByPk(delivery_problem.delivery_id);
 
-    const { description } = req.body;
-    const { id } = req.params;
+    await delivery.update({ canceled_at: new Date() });
 
-    const delivery_problem = await DeliveryProblem.create({ //eslint-disable-line
-      description,
-      delivery_id: id,
-    });
-
-    return res.json(delivery_problem);
+    return res.json({ okay: true });
   }
 }
 

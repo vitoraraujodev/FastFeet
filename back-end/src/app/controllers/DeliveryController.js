@@ -54,11 +54,19 @@ class DeliveryController {
       return res.status(400).json({ error: 'Validation failed.' });
     }
 
-    const delivery = await Delivery.create(req.body);
-
     const deliveryman = await Deliveryman.findByPk(req.body.deliveryman_id);
 
-    const recipient = await Recipient.findByPk(req.body.deliveryman_id);
+    if (!deliveryman) {
+      return res.status(400).json({ error: 'Deliveryman does not exist.' });
+    }
+
+    const recipient = await Recipient.findByPk(req.body.recipient_id);
+
+    if (!recipient) {
+      return res.status(400).json({ error: 'Recipient does not exist.' });
+    }
+
+    const delivery = await Delivery.create(req.body);
 
     await Queue.add(DeliveryMail.key, { delivery, recipient, deliveryman });
 
