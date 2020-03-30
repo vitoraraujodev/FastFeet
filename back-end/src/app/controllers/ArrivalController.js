@@ -35,6 +35,16 @@ class ArrivalController {
         .json({ error: 'You have to be the respective deliveryman.' });
     }
 
+    if (!delivery.start_date) {
+      return res
+        .status(400)
+        .json({ error: 'This order was not taken to delivery.' });
+    }
+
+    if (delivery.canceled_at) {
+      return res.status(400).json({ error: 'This delivery is canceled.' });
+    }
+
     const newDelivery = await delivery.update({
       end_date: new Date(),
     });

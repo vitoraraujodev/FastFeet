@@ -1,5 +1,11 @@
 import DeliveryProblem from '../models/DeliveryProblem';
 import Delivery from '../models/Delivery';
+import Deliveryman from '../models/Deliveryman';
+import Recipient from '../models/Recipient';
+
+import CancelationMail from '../jobs/CancelationMail';
+
+import Queue from '../../lib/Queue';
 
 class DeliveryProblemController {
   // Listagem de Problemas na Entrega por parte da distribuidora
@@ -29,9 +35,39 @@ class DeliveryProblemController {
   async delete(req, res) {
     const delivery_problem = await DeliveryProblem.findByPk(req.params.id); //eslint-disable-line
 
-    const delivery = await Delivery.findByPk(delivery_problem.delivery_id);
+    const delivery = await Delivery.findByPk(delivery_problem.delivery_id, {
+      include: [
+        {
+          model: Deliveryman,
+          as: 'deliveryman',
+          attributes: ['id', 'name', 'email'],
+        },
+        {
+          model: Recipient,
+          as: 'recipient',
+          attributes: [
+            'id',
+            'name',
+            'rua',
+            'numero',
+            'complemento',
+            'estado',
+            'cidade',
+            'cep',
+          ],
+        },
+      ],
+    });
+
+    if (delivery.canceled_at) {
+      return res.status(400).json({ error: 'Delivery already canceled.' });
+    }
+
+    const { deliveryman, recipient } = delivery;
 
     await delivery.update({ canceled_at: new Date() });
+
+    await Queue.add(CancelationMail.key, { delivery, deliveryman, recipient });
 
     return res.json({ okay: true });
   }

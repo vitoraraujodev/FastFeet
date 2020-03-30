@@ -95,7 +95,7 @@ class DeliveryController {
     const delivery = await Delivery.findByPk(req.params.id);
 
     if (!delivery) {
-      return res.status(401).json({ error: 'Delivery does not exists' });
+      return res.status(400).json({ error: 'Delivery does not exists' });
     }
 
     await delivery.destroy();

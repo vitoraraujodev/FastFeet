@@ -62,7 +62,7 @@ class DeliverymanController {
     const deliveryman = await Deliveryman.findByPk(req.params.id);
 
     if (!deliveryman) {
-      return res.status(401).json({ error: 'Deliveryman does not exists' });
+      return res.status(400).json({ error: 'Deliveryman does not exists' });
     }
 
     await deliveryman.destroy();
