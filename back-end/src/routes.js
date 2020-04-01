@@ -21,6 +21,7 @@ const routes = new Router();
 
 routes.post('/sessions', SessionController.store);
 
+routes.get('/recipients', authMiddleware, RecipientController.index);
 routes.post('/recipients', authMiddleware, RecipientController.store);
 routes.put('/recipients/:id', authMiddleware, RecipientController.update);
 
