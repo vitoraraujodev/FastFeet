@@ -1,13 +1,6 @@
 import styled from 'styled-components';
 
-export const Background = styled.div`
-  display: flex;
-  height: 100%;
-  background-color: #7d40e7;
-
-  justify-content: center;
-  align-items: center;
-`;
+import { darken } from 'polished';
 
 export const Container = styled.div`
   background-color: #fff;
@@ -17,55 +10,56 @@ export const Container = styled.div`
 
   display: flex;
   flex-direction: column;
-`;
 
-export const Logo = styled.img`
-  width: 260px;
-  margin: 15px;
-`;
-
-export const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 30px;
-`;
-
-export const TextLabel = styled.p`
-  text-align: left;
-  margin: 10px 0;
-
-  font-size: 14px;
-  font-weight: bold;
-  color: #444444;
-  letter-spacing: 0px;
-`;
-
-export const Input = styled.input`
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  height: 40px;
-  padding: 0 15px;
-  color: #333;
-  width: 300px;
-  margin: 0 0 10px;
-  &::placeholder {
-    color: #999;
+  img {
+    width: 260px;
+    margin: 15px;
   }
-`;
 
-export const SubmitButton = styled.button`
-  margin: 5px 0 0;
-  height: 44px;
-  background: #7d40e7;
-  font-weight: bold;
-  color: #fff;
-  border: 0;
-  border-radius: 4px;
-  font-size: 16px;
-  margin-bottom: 20px;
-  overflow: hidden;
-  transition: background 0.2s;
-  &:hover {
+  form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+
+    p {
+      text-align: left;
+      margin: 10px 0;
+
+      font-size: 14px;
+      font-weight: bold;
+      color: #444444;
+      letter-spacing: 0px;
+    }
+
+    input {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      height: 40px;
+      padding: 0 15px;
+      color: #333;
+      width: 300px;
+      margin: 0 0 10px;
+      &::placeholder {
+        color: #999;
+      }
+    }
+
+    button {
+      margin: 5px 0 0;
+      height: 44px;
+      background: #7d40e7;
+      font-weight: bold;
+      color: #fff;
+      border: 0;
+      border-radius: 4px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      transition: background 0.2s;
+      &:hover {
+        background: ${darken(0.03, '#7d40e7')};
+      }
+    }
   }
 `;
