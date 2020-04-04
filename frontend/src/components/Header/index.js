@@ -16,7 +16,7 @@ export default function Header() {
             <NavLink activeStyle={{ color: '#444' }} to="/delivery">
               ENCOMENDAS
             </NavLink>
-            <NavLink activeStyle={{ color: '#444' }} to="/plans">
+            <NavLink activeStyle={{ color: '#444' }} to="/deliveryman">
               ENTREGADORES
             </NavLink>
             <NavLink activeStyle={{ color: '#444' }} to="/registrations">

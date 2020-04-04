@@ -1,10 +1,19 @@
 import React from 'react';
 import { MdSearch, MdAdd } from 'react-icons/md';
 
-import { Container, UtilBar, Input, Table, Button } from './styles';
+import {
+  Container,
+  UtilBar,
+  Input,
+  Table,
+  Button,
+  Deliveryman,
+} from './styles';
 
 import Action from '~/components/Action';
 import Status from '~/components/Status';
+
+import lolcoffee from '~/assets/lolcoffee.jpg';
 
 export default function List() {
   return (
@@ -12,7 +21,7 @@ export default function List() {
       <strong>Gerenciando encomendas</strong>
       <UtilBar>
         <Input>
-          <MdSearch size={25} color="#999" />
+          <MdSearch size={22} color="#999" />
 
           <input placeholder="Buscar por encomendas" />
         </Input>
@@ -52,53 +61,73 @@ export default function List() {
           <tr>
             <td>#01</td>
             <td>Vitor Araujo</td>
-            <td>Felipe Mattos</td>
+            <td>
+              <Deliveryman>
+                <img src={lolcoffee} alt="lolcoffee" />
+                <span>Felipe Mattos</span>
+              </Deliveryman>
+            </td>
             <td>Rio de Janeiro</td>
             <td align="center">RJ</td>
             <td align="center">
               <Status status="canceled" />
             </td>
             <td align="center">
-              <Action />
+              <Action type="delivery" view edit remove />
             </td>
           </tr>
           <tr>
             <td>#01</td>
             <td>Vitor Araujo</td>
-            <td>Felipe Mattos</td>
+            <td>
+              <Deliveryman>
+                <img src={lolcoffee} alt="lolcoffee" />
+                <span>Felipe Mattos</span>
+              </Deliveryman>
+            </td>
             <td>Rio de Janeiro</td>
             <td align="center">RJ</td>
             <td align="center">
               <Status status="pendent" />
             </td>
             <td align="center">
-              <Action />
+              <Action type="delivery" view edit remove />
             </td>
           </tr>
           <tr>
             <td>#01</td>
             <td>Vitor Araujo</td>
-            <td>Felipe Mattos</td>
+            <td>
+              <Deliveryman>
+                <img src={lolcoffee} alt="lolcoffee" />
+                <span>Felipe Mattos</span>
+              </Deliveryman>
+            </td>
             <td>Rio de Janeiro</td>
             <td align="center">RJ</td>
             <td align="center">
               <Status status="delivered" />
             </td>
             <td align="center">
-              <Action />
+              <Action type="delivery" view edit remove />
             </td>
           </tr>
           <tr>
             <td>#01</td>
             <td>Vitor Araujo</td>
-            <td>Felipe Mattos</td>
+            <td>
+              <Deliveryman>
+                <img src={lolcoffee} alt="lolcoffee" />
+                <span>Felipe Mattos</span>
+              </Deliveryman>
+            </td>
             <td>Rio de Janeiro</td>
             <td align="center">RJ</td>
             <td align="center">
               <Status status="taken" />
             </td>
             <td align="center">
-              <Action />
+              <Action type="delivery" view edit remove />
             </td>
           </tr>
         </tbody>

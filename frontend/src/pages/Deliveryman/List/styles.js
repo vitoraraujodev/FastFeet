@@ -80,20 +80,11 @@ export const Table = styled.table`
     font-size: 16px;
     color: #666;
     padding: 10px 25px;
-  }
-`;
 
-export const Deliveryman = styled.div`
-  display: flex;
-  align-items: center;
-
-  span {
-    margin-left: 8px;
-  }
-
-  img {
-    width: 36px;
-    height: 36px;
-    border-radius: 18px;
+    img {
+      width: 36px;
+      height: 36px;
+      border-radius: 18px;
+    }
   }
 `;
