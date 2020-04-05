@@ -22,7 +22,7 @@ export default function Header() {
             <NavLink activeStyle={{ color: '#444' }} to="/recipients">
               DESTINATÁRIOS
             </NavLink>
-            <NavLink activeStyle={{ color: '#444' }} to="/help-orders">
+            <NavLink activeStyle={{ color: '#444' }} to="/problems">
               PROBLEMAS
             </NavLink>
           </nav>

@@ -43,6 +43,13 @@ export default function ActionMenu({ view, edit, remove, cancel, type }) {
             <span>Excluir</span>
           </Action>
         ) : null}
+
+        {cancel ? (
+          <Action>
+            <MdDeleteForever size={15} color="#DE3B3B" />
+            <span>Cancelar</span>
+          </Action>
+        ) : null}
       </Actions>
     </Container>
   );

@@ -79,7 +79,7 @@ export const Table = styled.table`
     border-radius: 4px;
     font-size: 16px;
     color: #666;
-    padding: 10px 25px;
+    padding: 12px 25px;
   }
 `;
 
