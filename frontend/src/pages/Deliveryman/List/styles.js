@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { Link } from 'react-router-dom';
+
 import { darken } from 'polished';
 
 export const Container = styled.div`
@@ -41,7 +43,7 @@ export const Input = styled.div`
   }
 `;
 
-export const Button = styled.button`
+export const Button = styled(Link)`
   background: #7d40e7;
   border: 0;
   border-radius: 4px;

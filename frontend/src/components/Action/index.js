@@ -9,7 +9,7 @@ import {
 
 import { Container, Icon, Actions, Action } from './styles';
 
-export default function ActionMenu({ view, edit, remove, cancel, type }) {
+export default function ActionMenu({ view, edit, remove, cancel, type }) { //eslint-disable-line
   const [visible, setVisible] = useState(false);
 
   function handleToggleVisible() {

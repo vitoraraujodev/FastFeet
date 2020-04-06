@@ -17,7 +17,7 @@ export default function List() {
 
           <input placeholder="Buscar por entregadores" />
         </Input>
-        <Button type="button">
+        <Button to="/deliveryman/new">
           <MdAdd size={22} color="#fff" />
           <span>CADASTRAR</span>
         </Button>
