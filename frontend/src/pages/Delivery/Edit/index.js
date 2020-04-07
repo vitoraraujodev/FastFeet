@@ -12,7 +12,7 @@ import {
   Selector,
 } from './styles';
 
-export default function New() {
+export default function Edit() {
   const [recipients, setRecipients] = useState([]);
   const [deliverymans, setDeliverymans] = useState([]);
 
