@@ -22,27 +22,11 @@ export const Container = styled.div`
     margin-top: 30px;
 
     p {
-      text-align: left;
       margin: 10px 0;
-
-      font-size: 14px;
-      font-weight: bold;
-      color: #444444;
-      letter-spacing: 0px;
     }
 
     input {
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      height: 40px;
-      padding: 0 15px;
-      color: #333;
-      width: 300px;
       margin: 0 0 10px;
-      &::placeholder {
-        color: #999;
-      }
     }
 
     button {

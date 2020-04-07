@@ -9,6 +9,7 @@ import DeliverymanList from '~/pages/Deliveryman/List';
 import DeliverymanNew from '~/pages/Deliveryman/New';
 
 import RecipientList from '~/pages/Recipient/List';
+import RecipientNew from '~/pages/Recipient/New';
 
 import ProblemList from '~/pages/Problem/List';
 
@@ -23,6 +24,7 @@ export default function Routes() {
         <Route path="/deliveryman" exact component={DeliverymanList} />
         <Route path="/deliveryman/new" component={DeliverymanNew} />
         <Route path="/recipients" exact component={RecipientList} />
+        <Route path="/recipients/new" component={RecipientNew} />
         <Route path="/problems" exact component={ProblemList} />
       </Switch>
     </BrowserRouter>

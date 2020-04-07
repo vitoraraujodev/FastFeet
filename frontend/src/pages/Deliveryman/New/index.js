@@ -31,12 +31,8 @@ export default function New() {
       </UtilBar>
       <FormContainer>
         <AvatarInput />
-        <p>Nome</p>
-        <Input
-          style={{ marginBottom: 25 }}
-          name="name"
-          placeholder="Seu nome"
-        />
+        <p style={{ marginTop: 0 }}>Nome</p>
+        <Input name="name" placeholder="Digite o nome" />
         <p>Email</p>
         <Input name="email" placeholder="exemplo@email.com" />
       </FormContainer>

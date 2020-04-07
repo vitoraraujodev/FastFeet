@@ -30,4 +30,27 @@ export default createGlobalStyle`
   button {
     cursor: pointer;
   }
+
+  form p {
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
+    color: #444;
+  }
+
+  form input {
+    width: 45px;
+    height: 45px;
+    width: 100%;
+    border-radius: 4px;
+    padding: 0 16px;
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #333;
+    font-size: 16px;
+
+    &::placeholder {
+      color: #999;
+    }
+  }
 `;

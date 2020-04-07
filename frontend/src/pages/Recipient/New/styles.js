@@ -79,7 +79,14 @@ export const FormContainer = styled.div`
   margin-top: 25px;
 
   p {
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin: 10px 0;
+  }
+`;
+
+export const InputGroup = styled.div`
+  display: flex;
+  div {
+    flex: 1;
+    margin: 0 8px;
   }
 `;
