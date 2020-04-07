@@ -25,7 +25,7 @@ export default function List() {
 
           <input placeholder="Buscar por encomendas" />
         </Input>
-        <Button type="button">
+        <Button to="/delivery/new">
           <MdAdd size={22} color="#fff" />
           <span>CADASTRAR</span>
         </Button>
