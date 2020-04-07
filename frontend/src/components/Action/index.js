@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   MdMoreHoriz,
@@ -25,29 +26,37 @@ export default function ActionMenu({ view, edit, remove, cancel, type }) { //esl
       <Actions visible={visible}>
         {view ? (
           <Action>
-            <MdRemoveRedEye size={15} color="#8E5BE8" />
-            <span>Visualizar</span>
+            <Link to="/">
+              <MdRemoveRedEye size={15} color="#8E5BE8" />
+              <span>Visualizar</span>
+            </Link>
           </Action>
         ) : null}
 
         {edit ? (
           <Action>
-            <MdModeEdit size={15} color="#4D85EE" />
-            <span>Editar</span>
+            <Link to={`/${type}/edit/1`}>
+              <MdModeEdit size={15} color="#4D85EE" />
+              <span>Editar</span>
+            </Link>
           </Action>
         ) : null}
 
         {remove ? (
           <Action>
-            <MdDeleteForever size={15} color="#DE3B3B" />
-            <span>Excluir</span>
+            <Link to="/">
+              <MdDeleteForever size={15} color="#DE3B3B" />
+              <span>Excluir</span>
+            </Link>
           </Action>
         ) : null}
 
         {cancel ? (
           <Action>
-            <MdDeleteForever size={15} color="#DE3B3B" />
-            <span>Cancelar</span>
+            <Link to="/">
+              <MdDeleteForever size={15} color="#DE3B3B" />
+              <span>Cancelar</span>
+            </Link>
           </Action>
         ) : null}
       </Actions>
