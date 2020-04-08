@@ -40,3 +40,21 @@ export const Table = styled.table`
     }
   }
 `;
+
+export const ProblemDescription = styled.td`
+  position: relative;
+
+  &::before {
+    content: '&nbsp;';
+    visibility: hidden;
+  }
+  span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 25px;
+    text-overflow: ellipsis;
+  }
+`;
