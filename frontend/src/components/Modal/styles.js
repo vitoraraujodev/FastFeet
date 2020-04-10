@@ -49,10 +49,10 @@ export const ModalContainer = styled.div`
   }
 
   span {
-    color: #444;
+    color: #666;
     font-size: 16px;
     font-weight: 500;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
   }
 
   b {
