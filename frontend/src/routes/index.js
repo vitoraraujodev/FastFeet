@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { Router, Switch } from 'react-router-dom';
 
 import SignIn from '~/pages/SignIn';
 
@@ -19,9 +19,11 @@ import ProblemList from '~/pages/Problem/List';
 
 import Route from './Route';
 
+import history from '~/services/history';
+
 export default function Routes() {
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <Switch>
         <Route path="/" exact component={SignIn} notPrivate />
         <Route path="/delivery" exact component={DeliveryList} />
@@ -35,6 +37,6 @@ export default function Routes() {
         <Route path="/recipients/edit/:id" component={RecipientEdit} />
         <Route path="/problems" exact component={ProblemList} />
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
