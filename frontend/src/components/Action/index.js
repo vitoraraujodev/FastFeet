@@ -10,7 +10,7 @@ import {
 
 import { Container, Icon, Actions, Action } from './styles';
 
-export default function ActionMenu({ view, edit, remove, cancel, type }) { //eslint-disable-line
+export default function ActionMenu({ view, edit, remove, cancel, type, onView }) { //eslint-disable-line
   const [visible, setVisible] = useState(false);
 
   function handleToggleVisible() {
@@ -25,11 +25,14 @@ export default function ActionMenu({ view, edit, remove, cancel, type }) { //esl
 
       <Actions visible={visible}>
         {view ? (
-          <Action>
-            <Link to="/">
-              <MdRemoveRedEye size={15} color="#8E5BE8" />
-              <span>Visualizar</span>
-            </Link>
+          <Action
+            onClick={() => {
+              handleToggleVisible();
+              onView();
+            }}
+          >
+            <MdRemoveRedEye size={15} color="#8E5BE8" />
+            <span>Visualizar</span>
           </Action>
         ) : null}
 

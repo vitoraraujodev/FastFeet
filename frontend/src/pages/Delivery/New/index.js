@@ -23,7 +23,7 @@ export default function New() {
       <UtilBar>
         <strong>Cadastro de encomendas</strong>
         <div>
-          <Button to="/recipients" background="#ccc">
+          <Button to="/delivery" background="#ccc">
             <MdKeyboardArrowLeft size={22} color="#fff" />
             <span>VOLTAR</span>
           </Button>
