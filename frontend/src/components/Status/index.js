@@ -2,10 +2,21 @@ import React from 'react';
 
 import { Container, Circle } from './styles';
 
-export default function Status({ status }) {
+export default function Status({ delivery }) {
+  let status = 'pendent';
   let color = '#FFF';
   let background = '#FFF';
   let statusText = '';
+
+  if (delivery.start_date) {
+    status = 'taken';
+  }
+  if (delivery.canceled_at) {
+    status = 'canceled';
+  }
+  if (delivery.end_date) {
+    status = 'delivered';
+  }
 
   switch (status) {
     case 'canceled':

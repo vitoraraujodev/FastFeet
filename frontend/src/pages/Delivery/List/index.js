@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MdSearch, MdAdd } from 'react-icons/md';
+import { format, parseISO } from 'date-fns';
 
 import Action from '~/components/Action';
 import Status from '~/components/Status';
@@ -14,30 +15,98 @@ import {
   Deliveryman,
 } from './styles';
 
+import api from '~/services/api';
+
 import lolcoffee from '~/assets/lolcoffee.jpg';
 
 export default function List() {
+  const [deliveries, setDeliveries] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [search, setSearch] = useState('');
+  const [selectedDelivery, setSelectedDelivery] = useState({
+    id: 0,
+    product: '',
+    canceled_at: null,
+    start_date: null,
+    end_date: null,
+    deliveryman: {
+      id: 0,
+      name: '',
+      email: '',
+    },
+    recipient: {
+      id: 0,
+      name: '',
+      rua: '',
+      numero: 0,
+      complemento: '',
+      estado: '',
+      cidade: '',
+      cep: '',
+    },
+    signature: null,
+  });
+
+  async function loadDeliveries() {
+    const response = await api.get('delivery');
+    setDeliveries(response.data);
+  }
+
+  useEffect(() => {
+    loadDeliveries();
+  }, []);
+
+  async function handleSearch({ value }) {
+    const response = await api.get('delivery', { params: { search: value } });
+    setSearch('');
+    setDeliveries(response.data);
+  }
 
   return (
     <>
       <Modal visible={visible} onClose={() => setVisible(false)}>
         <p style={{ marginTop: 0, paddingTop: 0 }}>Informações da encomenda</p>
-        <span>Rua Beethoven, 1729</span> <br /> <span>Diadema - SP</span> <br />
-        <span>222260-002</span> <br />
+        <span>
+          {selectedDelivery.recipient.rua}, {selectedDelivery.recipient.numero}
+        </span>
+        <br />
+        <span>
+          {selectedDelivery.recipient.cidade} -
+          {selectedDelivery.recipient.estado}
+        </span>
+        <br />
+        <span>{selectedDelivery.recipient.cep}</span> <br />
         <p>Datas</p>
-        <b>Retirada:</b> <span>25/01/2020</span> <br />
-        <b>Entrega:</b> <span>26/01/2020</span> <br />
-        <p>Assinatura do destinatário</p>
-        <img src={lolcoffee} alt="lolcoffee" />
+        <b>Retirada: </b>
+        <span>
+          {selectedDelivery.start_date
+            ? format(parseISO(selectedDelivery.start_date), 'dd/MM/yyyy')
+            : 'Encomenda ainda não foi retirada'}
+        </span>
+        <br />
+        <b>Entrega: </b>
+        <span>
+          {selectedDelivery.end_date
+            ? format(parseISO(selectedDelivery.end_date), 'dd/MM/yyyy')
+            : 'Encomenda ainda não foi entregue'}
+        </span>
+        <br />
+        {selectedDelivery.signature ? (
+          <>
+            <p>Assinatura do destinatário</p>
+            <img src={selectedDelivery.signature.url} alt="signature" />
+          </>
+        ) : null}
       </Modal>
       <Container>
         <strong>Gerenciando encomendas</strong>
         <UtilBar>
-          <Input>
+          <Input onSubmit={handleSearch}>
             <MdSearch size={22} color="#999" />
-
-            <input placeholder="Buscar por encomendas" />
+            <input
+              onChange={(e) => handleSearch(e.target)}
+              placeholder="Buscar por encomendas"
+            />
           </Input>
           <Button to="/delivery/new">
             <MdAdd size={22} color="#fff" />
@@ -72,102 +141,42 @@ export default function List() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>#01</td>
-              <td>Vitor Araujo</td>
-              <td>
-                <Deliveryman>
-                  <img src={lolcoffee} alt="lolcoffee" />
-                  <span>Vitor Araujo</span>
-                </Deliveryman>
-              </td>
-              <td>Rio de Janeiro</td>
-              <td align="center">RJ</td>
-              <td align="center">
-                <Status status="canceled" />
-              </td>
-              <td align="center">
-                <Action
-                  type="delivery"
-                  view
-                  edit
-                  remove
-                  onView={() => setVisible(true)}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>#01</td>
-              <td>Vitor Araujo</td>
-              <td>
-                <Deliveryman>
-                  <img src={lolcoffee} alt="lolcoffee" />
-                  <span>Vitor Araujo</span>
-                </Deliveryman>
-              </td>
-              <td>Rio de Janeiro</td>
-              <td align="center">RJ</td>
-              <td align="center">
-                <Status status="pendent" />
-              </td>
-              <td align="center">
-                <Action
-                  type="delivery"
-                  view
-                  edit
-                  remove
-                  onView={() => setVisible(true)}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>#01</td>
-              <td>Vitor Araujo</td>
-              <td>
-                <Deliveryman>
-                  <img src={lolcoffee} alt="lolcoffee" />
-                  <span>Vitor Araujo</span>
-                </Deliveryman>
-              </td>
-              <td>Rio de Janeiro</td>
-              <td align="center">RJ</td>
-              <td align="center">
-                <Status status="delivered" />
-              </td>
-              <td align="center">
-                <Action
-                  type="delivery"
-                  view
-                  edit
-                  remove
-                  onView={() => setVisible(true)}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>#01</td>
-              <td>Vitor Araujo</td>
-              <td>
-                <Deliveryman>
-                  <img src={lolcoffee} alt="lolcoffee" />
-                  <span>Vitor Araujo</span>
-                </Deliveryman>
-              </td>
-              <td>Rio de Janeiro</td>
-              <td align="center">RJ</td>
-              <td align="center">
-                <Status status="taken" />
-              </td>
-              <td align="center">
-                <Action
-                  type="delivery"
-                  view
-                  edit
-                  remove
-                  onView={() => setVisible(true)}
-                />
-              </td>
-            </tr>
+            {deliveries.map((delivery) => (
+              <tr>
+                <td>#{delivery.id}</td>
+                <td>{delivery.recipient.name}</td>
+                <td>
+                  <Deliveryman>
+                    <img
+                      src={
+                        delivery.deliveryman.avatar
+                          ? delivery.deliveryman.avatar.url
+                          : lolcoffee
+                      }
+                      alt="avatar"
+                    />
+                    <span>{delivery.deliveryman.name}</span>
+                  </Deliveryman>
+                </td>
+                <td>{delivery.recipient.cidade}</td>
+                <td align="center">{delivery.recipient.estado}</td>
+                <td align="center">
+                  <Status delivery={delivery} />
+                </td>
+                <td align="center">
+                  <div onClick={() => setSelectedDelivery(delivery)}> {/*eslint-disable-line*/}
+                    <Action
+                      type="delivery"
+                      content={delivery}
+                      view
+                      edit
+                      remove
+                      onView={() => setVisible(true)}
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </Container>
