@@ -8,13 +8,24 @@ import {
   MdDeleteForever,
 } from 'react-icons/md';
 
+import api from '~/services/api';
+
 import { Container, Icon, Actions, Action } from './styles';
 
-export default function ActionMenu({ view, edit, remove, cancel, type, onView }) { //eslint-disable-line
+export default function ActionMenu({ content, view, edit, remove, cancel, type, onView }) { //eslint-disable-line
   const [visible, setVisible] = useState(false);
 
   function handleToggleVisible() {
     setVisible(!visible);
+  }
+
+  async function handleDelete() {
+    try {
+      await api.delete(`${type}/${content.id}`);
+      window.location.reload();
+    } catch (e) {
+      alert('Falha ao remover item. Tente novamente.');
+    }
   }
 
   return (
@@ -38,7 +49,12 @@ export default function ActionMenu({ view, edit, remove, cancel, type, onView })
 
         {edit ? (
           <Action>
-            <Link to={`/${type}/edit/1`}>
+            <Link
+              to={{
+                pathname: `/${type}/edit/${content.id}`,
+                state: { content },
+              }}
+            >
               <MdModeEdit size={15} color="#4D85EE" />
               <span>Editar</span>
             </Link>
@@ -46,20 +62,16 @@ export default function ActionMenu({ view, edit, remove, cancel, type, onView })
         ) : null}
 
         {remove ? (
-          <Action>
-            <Link to="/">
-              <MdDeleteForever size={15} color="#DE3B3B" />
-              <span>Excluir</span>
-            </Link>
+          <Action onClick={handleDelete}>
+            <MdDeleteForever size={15} color="#DE3B3B" />
+            <span>Excluir</span>
           </Action>
         ) : null}
 
         {cancel ? (
           <Action>
-            <Link to="/">
-              <MdDeleteForever size={15} color="#DE3B3B" />
-              <span>Cancelar</span>
-            </Link>
+            <MdDeleteForever size={15} color="#DE3B3B" />
+            <span>Cancelar</span>
           </Action>
         ) : null}
       </Actions>

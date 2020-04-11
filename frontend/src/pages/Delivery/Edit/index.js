@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input } from '@rocketseat/unform';
 import { MdKeyboardArrowLeft, MdDone } from 'react-icons/md';
 
@@ -12,17 +12,49 @@ import {
   Selector,
 } from './styles';
 
-export default function Edit() {
+import api from '~/services/api';
+import history from '~/services/history';
+
+export default function Edit({ location }) {
+  const delivery = location.state.content || null;
   const [recipients, setRecipients] = useState([]);
   const [deliverymans, setDeliverymans] = useState([]);
 
-  function handleSubmit() {}
+  async function loadRecipients() {
+    const response = await api.get('recipients');
+    setRecipients(
+      response.data.map((recipient) => {
+        return { id: parseInt(recipient.id, 10), title: recipient.name };
+      })
+    );
+  }
 
-  const delivery = {
-    product: 'Livro',
-    recipient: 'Vitor araujo',
-    deliveryman: 'Vitor araujo',
-  };
+  async function loadDeliverymans() {
+    const response = await api.get('deliveryman');
+    setDeliverymans(
+      response.data.map((deliveryman) => {
+        return { id: parseInt(deliveryman.id, 10), title: deliveryman.name };
+      })
+    );
+  }
+
+  useEffect(() => {
+    try {
+      loadRecipients();
+      loadDeliverymans();
+    } catch (e) {
+      alert('Não foi possível carregar dados.');
+    }
+  }, []);
+
+  async function handleSubmit(data) {
+    try {
+      await api.put(`/delivery/${delivery.id}`, data);
+      history.push('/delivery');
+    } catch (e) {
+      alert('Não foi possível realizar a alteração. Tente novemente.');
+    }
+  }
 
   return (
     <Container initialData={delivery} onSubmit={handleSubmit}>
@@ -39,21 +71,21 @@ export default function Edit() {
           </SubmitButton>
         </div>
       </UtilBar>
-      <FormContainer>
+      <FormContainer onSubmit={handleSubmit}>
         <InputGroup>
           <div style={{ marginLeft: 0 }}>
-            <p>Destinatário</p>
+            <p>Destinatário *</p>
             <Selector
-              name="recipient"
+              name="recipient_id"
               placeholder="Selecione..."
               options={recipients}
             />
           </div>
 
           <div style={{ marginRight: 0 }}>
-            <p>Entregador</p>
+            <p>Entregador *</p>
             <Selector
-              name="deliveryman"
+              name="deliveryman_id"
               placeholder="Selecione..."
               options={deliverymans}
             />

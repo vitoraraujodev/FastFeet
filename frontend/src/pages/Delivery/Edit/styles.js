@@ -101,4 +101,9 @@ export const Selector = styled(Select)`
   color: #999;
   padding: 0 16px;
   width: 100%;
+
+  option {
+    font-size: 18px;
+    color: #666;
+  }
 `;

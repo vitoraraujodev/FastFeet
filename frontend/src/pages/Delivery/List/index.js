@@ -81,14 +81,14 @@ export default function List() {
         <span>
           {selectedDelivery.start_date
             ? format(parseISO(selectedDelivery.start_date), 'dd/MM/yyyy')
-            : 'Encomenda ainda não foi retirada'}
+            : '--/--/--'}
         </span>
         <br />
         <b>Entrega: </b>
         <span>
           {selectedDelivery.end_date
             ? format(parseISO(selectedDelivery.end_date), 'dd/MM/yyyy')
-            : 'Encomenda ainda não foi entregue'}
+            : '--/--/--'}
         </span>
         <br />
         {selectedDelivery.signature ? (
