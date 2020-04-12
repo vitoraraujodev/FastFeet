@@ -12,13 +12,20 @@ import {
   FormContainer,
 } from './styles';
 
-export default function Edit() {
-  function handleSubmit() {}
+import api from '~/services/api';
+import history from '~/services/history';
 
-  const deliveryman = {
-    name: 'Vitor Araujo',
-    email: 'vitoraraujow@gmail.com',
-  };
+export default function Edit({ location }) {
+  const deliveryman = location.state.content || null;
+
+  async function handleSubmit(data) {
+    try {
+      await api.put(`/deliveryman/${deliveryman.id}`, data);
+      history.push('/deliveryman');
+    } catch (err) {
+      alert('Não foi possível realizar a alteração. Tente novamente.');
+    }
+  }
 
   return (
     <Container initialData={deliveryman} onSubmit={handleSubmit}>
@@ -36,7 +43,7 @@ export default function Edit() {
         </div>
       </UtilBar>
       <FormContainer>
-        <AvatarInput />
+        <AvatarInput name="avatar_id" />
         <p style={{ marginTop: 0 }}>Nome</p>
         <Input name="name" placeholder="Digite o nome" />
         <p>Email</p>

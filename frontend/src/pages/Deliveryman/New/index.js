@@ -12,8 +12,19 @@ import {
   FormContainer,
 } from './styles';
 
+import api from '~/services/api';
+import history from '~/services/history';
+
 export default function New() {
-  function handleSubmit() {}
+  async function handleSubmit(data) {
+    try {
+      await api.post('/deliveryman', data);
+      history.push('/deliveryman');
+    } catch (err) {
+      alert('Não foi possível realizar o cadastro. Tente novamente.');
+    }
+  }
+
   return (
     <Container onSubmit={handleSubmit}>
       <UtilBar>
@@ -30,7 +41,7 @@ export default function New() {
         </div>
       </UtilBar>
       <FormContainer>
-        <AvatarInput />
+        <AvatarInput name="avatar_id" />
         <p style={{ marginTop: 0 }}>Nome</p>
         <Input name="name" placeholder="Digite o nome" />
         <p>Email</p>

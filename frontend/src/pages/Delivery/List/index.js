@@ -22,7 +22,6 @@ import lolcoffee from '~/assets/lolcoffee.jpg';
 export default function List() {
   const [deliveries, setDeliveries] = useState([]);
   const [visible, setVisible] = useState(false);
-  const [search, setSearch] = useState('');
   const [selectedDelivery, setSelectedDelivery] = useState({
     id: 0,
     product: '',
@@ -58,7 +57,6 @@ export default function List() {
 
   async function handleSearch({ value }) {
     const response = await api.get('delivery', { params: { search: value } });
-    setSearch('');
     setDeliveries(response.data);
   }
 

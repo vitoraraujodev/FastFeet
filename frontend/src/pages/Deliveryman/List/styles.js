@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { Form } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 
 import { darken } from 'polished';
@@ -21,7 +21,7 @@ export const UtilBar = styled.div`
   justify-content: space-between;
 `;
 
-export const Input = styled.div`
+export const Input = styled(Form)`
   width: 236px;
   height: 36px;
   background: #fff;
