@@ -11,18 +11,20 @@ import {
   InputGroup,
 } from './styles';
 
-export default function Edit() {
-  const recipient = {
-    name: 'Vitor Araujo',
-    rua: 'Rua São Clemente',
-    numero: '114',
-    complemento: '702 Bloco 1',
-    cidade: 'Rio de Janeiro',
-    estado: 'RJ',
-    cep: '22260-002',
-  };
+import api from '~/services/api';
+import history from '~/services/history';
 
-  function handleSubmit() {}
+export default function Edit({ location }) {
+  const recipient = location.state.content || null;
+
+  async function handleSubmit(data) {
+    try {
+      await api.put(`/recipients/${recipient.id}`, data);
+      history.push('/recipients');
+    } catch (err) {
+      alert('Não foi possível realizar a alteração. Tente novamente.');
+    }
+  }
 
   return (
     <Container initialData={recipient} onSubmit={handleSubmit}>

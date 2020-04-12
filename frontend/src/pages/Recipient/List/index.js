@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { MdSearch, MdAdd } from 'react-icons/md';
 
 import { Container, UtilBar, Input, Table, Button } from './styles';
 
 import Action from '~/components/Action';
 
+import api from '~/services/api';
+
 export default function List() {
+  const [recipients, setRecipients] = useState([]);
+
+  async function loadRecipients() {
+    const response = await api.get('recipients');
+    setRecipients(response.data);
+  }
+
+  useEffect(() => {
+    loadRecipients();
+  }, []);
+
   return (
     <Container>
       <strong>Gerenciando destinatários</strong>
@@ -39,30 +52,19 @@ export default function List() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>#01</td>
-            <td>Felipe Mattos</td>
-            <td>Rua São Clemente, 114, Rio de Janeiro, RJ</td>
-            <td align="center">
-              <Action type="recipients" edit remove />
-            </td>
-          </tr>
-          <tr>
-            <td>#01</td>
-            <td>Felipe Mattos</td>
-            <td>Rua São Clemente, 114, Rio de Janeiro, RJ</td>
-            <td align="center">
-              <Action type="recipients" edit remove />
-            </td>
-          </tr>
-          <tr>
-            <td>#01</td>
-            <td>Felipe Mattos</td>
-            <td>Rua São Clemente, 114, Rio de Janeiro, RJ</td>
-            <td align="center">
-              <Action type="recipients" edit remove />
-            </td>
-          </tr>
+          {recipients.map((recipient) => (
+            <tr>
+              <td>#{recipient.id}</td>
+              <td>{recipient.name}</td>
+              <td>
+                {recipient.rua}, {recipient.numero}, {recipient.cidade},{' '}
+                {recipient.estado}
+              </td>
+              <td align="center">
+                <Action type="recipients" content={recipient} edit remove />
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </Container>

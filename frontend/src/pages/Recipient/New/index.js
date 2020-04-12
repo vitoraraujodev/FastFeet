@@ -11,8 +11,18 @@ import {
   InputGroup,
 } from './styles';
 
+import api from '~/services/api';
+import history from '~/services/history';
+
 export default function New() {
-  function handleSubmit() {}
+  async function handleSubmit(data) {
+    try {
+      await api.post('/recipients', data);
+      history.push('/recipients');
+    } catch (err) {
+      alert('Não foi possível realizar o cadastro. Tente novamente.');
+    }
+  }
 
   return (
     <Container onSubmit={handleSubmit}>
