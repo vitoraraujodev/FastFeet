@@ -14,6 +14,10 @@ class DeliverymanController {
           [Op.iLike]: `%${search}%`,
         },
       },
+      order: [
+        ['name', 'ASC'],
+        ['id', 'DESC'],
+      ],
       attributes: ['id', 'name', 'email'],
       include: [
         {

@@ -13,6 +13,10 @@ class RecipientController {
           [Op.iLike]: `%${search}%`,
         },
       },
+      order: [
+        ['name', 'ASC'],
+        ['id', 'DESC'],
+      ],
     });
 
     return res.json(recipients);
@@ -66,6 +70,18 @@ class RecipientController {
     } = await recipient.update(req.body);
 
     return res.json({ name, rua, numero, complemento, estadom, cidade, cep });
+  }
+
+  async delete(req, res) {
+    const recipient = await Recipient.findByPk(req.params.id);
+
+    if (!recipient) {
+      return res.status(400).json({ error: 'Recipient does not exists' });
+    }
+
+    await recipient.destroy();
+
+    return res.json({ okay: true });
   }
 }
 

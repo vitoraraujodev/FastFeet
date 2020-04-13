@@ -24,6 +24,7 @@ routes.post('/sessions', SessionController.store);
 routes.get('/recipients', authMiddleware, RecipientController.index);
 routes.post('/recipients', authMiddleware, RecipientController.store);
 routes.put('/recipients/:id', authMiddleware, RecipientController.update);
+routes.delete('/recipients/:id', authMiddleware, RecipientController.delete);
 
 routes.get('/deliveryman', authMiddleware, DeliverymanController.index);
 routes.post('/deliveryman', authMiddleware, DeliverymanController.store);

@@ -1,3 +1,5 @@
+import { Op } from 'sequelize';
+
 import DeliveryProblem from '../models/DeliveryProblem';
 import Delivery from '../models/Delivery';
 import Deliveryman from '../models/Deliveryman';
@@ -16,6 +18,11 @@ class DeliveryProblemController {
         {
           model: Delivery,
           as: 'delivery',
+          where: {
+            canceled_at: {
+              [Op.is]: null,
+            },
+          },
           attributes: [
             'id',
             'product',

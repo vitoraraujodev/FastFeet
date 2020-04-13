@@ -9,6 +9,7 @@ class DeliveryProblemController {
     const delivery_problems = await DeliveryProblem.findAll({ //eslint-disable-line
       where: { delivery_id: id },
       attributes: ['id', 'description'],
+      order: [['id', 'DESC']],
       include: [
         {
           model: Delivery,
@@ -39,6 +40,12 @@ class DeliveryProblemController {
 
     const { description } = req.body;
     const { id } = req.params;
+
+    const delivery = await Delivery.findByPk(id);
+
+    if (delivery.canceled_at) {
+      return res.status(401).json({ error: 'Delivery already canceled.' });
+    }
 
     const delivery_problem = await DeliveryProblem.create({ //eslint-disable-line
       description,

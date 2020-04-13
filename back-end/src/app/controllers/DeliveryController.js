@@ -20,6 +20,7 @@ class DeliveryController {
           [Op.iLike]: `%${search}%`,
         },
       },
+      order: [['id', 'DESC']],
       attributes: ['id', 'product', 'canceled_at', 'start_date', 'end_date'],
       include: [
         {
