@@ -20,20 +20,24 @@ export default function ActionMenu({ content, view, edit, remove, cancel, type, 
   }
 
   async function handleDelete() {
-    try {
-      await api.delete(`${type}/${content.id}`);
-      window.location.reload();
-    } catch (e) {
-      alert('Falha ao remover item. Tente novamente.');
+    if (window.confirm('Tem certeza que deseja deletar esse dado?')) {
+      try {
+        await api.delete(`${type}/${content.id}`);
+        window.location.reload();
+      } catch (e) {
+        alert('Falha ao remover item. Tente novamente.');
+      }
     }
   }
 
   async function handleCancel() {
-    try {
-      await api.delete(`problem/${content.id}/cancel-delivery`);
-      window.location.reload();
-    } catch (e) {
-      alert('Falha ao cancelar item. Tente novamente.');
+    if (window.confirm('Tem certeza que deseja cancelar essa encomenda?')) {
+      try {
+        await api.delete(`problem/${content.id}/cancel-delivery`);
+        window.location.reload();
+      } catch (e) {
+        alert('Falha ao cancelar item. Tente novamente.');
+      }
     }
   }
 
