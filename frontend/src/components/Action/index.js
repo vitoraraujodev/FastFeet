@@ -28,6 +28,15 @@ export default function ActionMenu({ content, view, edit, remove, cancel, type, 
     }
   }
 
+  async function handleCancel() {
+    try {
+      await api.delete(`problem/${content.id}/cancel-delivery`);
+      window.location.reload();
+    } catch (e) {
+      alert('Falha ao cancelar item. Tente novamente.');
+    }
+  }
+
   return (
     <Container>
       <Icon onClick={handleToggleVisible}>
@@ -69,7 +78,7 @@ export default function ActionMenu({ content, view, edit, remove, cancel, type, 
         ) : null}
 
         {cancel ? (
-          <Action>
+          <Action onClick={handleCancel}>
             <MdDeleteForever size={15} color="#DE3B3B" />
             <span>Cancelar</span>
           </Action>
