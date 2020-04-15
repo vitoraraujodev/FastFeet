@@ -15,11 +15,14 @@ import ArrivalController from './app/controllers/ArrivalController';
 import DeliveryProblemController from './app/controllers/DeliveryProblemController';
 import DistributorProblemController from './app/controllers/DistributorProblemController';
 
+import DeliverymanSessionController from './app/controllers/DeliverymanSessionController';
+
 const upload = multer(multerConfig);
 
 const routes = new Router();
 
 routes.post('/sessions', SessionController.store);
+routes.post('/deliveryman/sessions', DeliverymanSessionController.store);
 
 routes.get('/recipients', authMiddleware, RecipientController.index);
 routes.post('/recipients', authMiddleware, RecipientController.store);
