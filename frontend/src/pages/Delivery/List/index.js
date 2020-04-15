@@ -17,8 +17,6 @@ import {
 
 import api from '~/services/api';
 
-import lolcoffee from '~/assets/lolcoffee.jpg';
-
 export default function List() {
   const [deliveries, setDeliveries] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -149,9 +147,9 @@ export default function List() {
                       src={
                         delivery.deliveryman.avatar
                           ? delivery.deliveryman.avatar.url
-                          : lolcoffee
+                          : `https://ui-avatars.com/api/?rounded=true&name=${delivery.deliveryman.name}&background=7d40e7&color=fff`
                       }
-                      alt="avatar"
+                      alt=""
                     />
                     <span>{delivery.deliveryman.name}</span>
                   </Deliveryman>

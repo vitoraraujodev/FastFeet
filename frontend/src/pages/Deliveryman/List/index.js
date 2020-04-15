@@ -7,8 +7,6 @@ import Action from '~/components/Action';
 
 import api from '~/services/api';
 
-import lolcoffee from '~/assets/lolcoffee.jpg';
-
 export default function List() {
   const [deliverymans, setDeliverymans] = useState([]);
 
@@ -71,8 +69,12 @@ export default function List() {
               <td>#{deliveryman.id}</td>
               <td>
                 <img
-                  src={deliveryman.avatar ? deliveryman.avatar.url : lolcoffee}
-                  alt="avatar"
+                  src={
+                    deliveryman.avatar
+                      ? deliveryman.avatar.url
+                      : `https://ui-avatars.com/api/?rounded=true&name=${deliveryman.name}&background=7d40e7&color=fff`
+                  }
+                  alt=""
                 />
               </td>
               <td>{deliveryman.name}</td>
