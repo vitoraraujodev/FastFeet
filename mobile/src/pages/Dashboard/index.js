@@ -98,7 +98,7 @@ export default function Dashboard({ navigation }) {
 
   function handleNavigation(delivery) {
     navigation.navigate('Details', {
-      params: { delivery },
+      delivery,
     });
   }
 
