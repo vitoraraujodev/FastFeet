@@ -127,3 +127,21 @@ export const DetailsText = styled.Text`
   color: #7d40e7;
   font-weight: bold;
 `;
+
+export const Loading = styled.View`
+  flex: 1;
+  align-items: center;
+
+  justify-content: center;
+`;
+
+export const Empty = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const EmptyText = styled.Text`
+  color: #999;
+  font-size: 18px;
+`;

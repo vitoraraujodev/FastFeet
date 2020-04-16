@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, StatusBar, View, TouchableOpacity } from 'react-native';
+import {
+  Alert,
+  StatusBar,
+  View,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { format, parseISO } from 'date-fns';
 
@@ -25,6 +31,9 @@ import {
   DeliveryInfoTitle,
   DeliveryInfoValue,
   DetailsText,
+  Loading,
+  Empty,
+  EmptyText,
 } from './styles';
 
 import DeliveryState from '~/components/DeliveryState';
@@ -45,6 +54,7 @@ export default function Dashboard() {
     if (loading) {
       return;
     }
+    setDeliveries({});
     setLoading(true);
     try {
       const response = await api.get(`deliveryman/${profile.id}/takeaway`);
@@ -56,6 +66,26 @@ export default function Dashboard() {
       );
     }
     setLoading(false);
+    setShowPendent(true);
+  }
+
+  async function loadDelivered() {
+    if (loading) {
+      return;
+    }
+    setDeliveries({});
+    setLoading(true);
+    try {
+      const response = await api.get(`deliveryman/${profile.id}/deliveries`);
+      setDeliveries(response.data);
+    } catch (err) {
+      Alert.alert(
+        'Erro!',
+        'Não foi possível carregar as suas encomendas. Tente novamente.'
+      );
+    }
+    setLoading(false);
+    setShowPendent(false);
   }
 
   useEffect(() => {
@@ -91,49 +121,61 @@ export default function Dashboard() {
         <TitleContainer>
           <Title>Entregas</Title>
           <DeliveryOptions>
-            <TouchableOpacity onPress={() => setShowPendent(true)}>
+            <TouchableOpacity onPress={loadDeliveries}>
               <Option selected={showPendent}>Pendentes</Option>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setShowPendent(false)}>
+            <TouchableOpacity onPress={loadDelivered}>
               <Option selected={!showPendent}>Entregues</Option>
             </TouchableOpacity>
           </DeliveryOptions>
         </TitleContainer>
-        {deliveries ? (
-          <Deliveries
-            data={deliveries}
-            keyExtractor={(delivery) => String(delivery.id)}
-            renderItem={({ item: delivery }) => (
-              <DeliveryContainer>
-                <DeliveryTitleContainer>
-                  <Icon name="truck" size={22} color="#7D40E7" />
-                  <DeliveryTitle>Encomenda {delivery.id}</DeliveryTitle>
-                </DeliveryTitleContainer>
+        {loading ? (
+          <Loading>
+            <ActivityIndicator size="large" color="#ddd" />
+          </Loading>
+        ) : (
+          <>
+            {deliveries.length !== 0 ? (
+              <Deliveries
+                data={deliveries}
+                keyExtractor={(delivery) => String(delivery.id)}
+                renderItem={({ item: delivery }) => (
+                  <DeliveryContainer>
+                    <DeliveryTitleContainer>
+                      <Icon name="truck" size={22} color="#7D40E7" />
+                      <DeliveryTitle>Encomenda {delivery.id}</DeliveryTitle>
+                    </DeliveryTitleContainer>
 
-                <DeliveryState delivery={delivery} />
+                    <DeliveryState delivery={delivery} />
 
-                <DeliveryInfos>
-                  <View>
-                    <DeliveryInfoTitle>Data</DeliveryInfoTitle>
-                    <DeliveryInfoValue>
-                      {format(parseISO(delivery.created_at), 'dd/MM/yyyy')}
-                    </DeliveryInfoValue>
-                  </View>
-                  <View>
-                    <DeliveryInfoTitle>Cidade</DeliveryInfoTitle>
-                    <DeliveryInfoValue>
-                      {delivery.recipient.cidade}
-                    </DeliveryInfoValue>
-                  </View>
-                  <TouchableOpacity>
-                    <DeliveryInfoTitle />
-                    <DetailsText>Ver detalhes</DetailsText>
-                  </TouchableOpacity>
-                </DeliveryInfos>
-              </DeliveryContainer>
+                    <DeliveryInfos>
+                      <View>
+                        <DeliveryInfoTitle>Data</DeliveryInfoTitle>
+                        <DeliveryInfoValue>
+                          {format(parseISO(delivery.created_at), 'dd/MM/yyyy')}
+                        </DeliveryInfoValue>
+                      </View>
+                      <View>
+                        <DeliveryInfoTitle>Cidade</DeliveryInfoTitle>
+                        <DeliveryInfoValue>
+                          {delivery.recipient.cidade}
+                        </DeliveryInfoValue>
+                      </View>
+                      <TouchableOpacity>
+                        <DeliveryInfoTitle />
+                        <DetailsText>Ver detalhes</DetailsText>
+                      </TouchableOpacity>
+                    </DeliveryInfos>
+                  </DeliveryContainer>
+                )}
+              />
+            ) : (
+              <Empty>
+                <EmptyText>Não há entregas aqui por enquanto..</EmptyText>
+              </Empty>
             )}
-          />
-        ) : null}
+          </>
+        )}
       </Container>
     </>
   );
