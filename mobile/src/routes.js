@@ -9,9 +9,25 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SignIn from './pages/SignIn';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
+import Details from './pages/Details';
+import Confirm from './pages/Confirm';
+import NewProblem from './pages/Problems/New';
+import ListProblem from './pages/Problems/List';
 
 const AppStack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
+
+function DashboardStack() {
+  return (
+    <AppStack.Navigator screenOptions={{ headerShown: false }}>
+      <AppStack.Screen name="Dashboard" component={Dashboard} />
+      <AppStack.Screen name="Details" component={Details} />
+      <AppStack.Screen name="Confirm" component={Confirm} />
+      <AppStack.Screen name="NewProblem" component={NewProblem} />
+      <AppStack.Screen name="ListProblem" component={ListProblem} />
+    </AppStack.Navigator>
+  );
+}
 
 export default function Routes() {
   const signed = useSelector((state) => state.auth.signed);
@@ -27,7 +43,7 @@ export default function Routes() {
           >
             <BottomTab.Screen
               name="Dashboard"
-              component={Dashboard}
+              component={DashboardStack}
               options={{
                 tabBarLabel: 'Entregas',
                 tabBarIcon: ({ color, size }) => (

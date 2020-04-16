@@ -42,11 +42,11 @@ import { signOut } from '~/store/modules/auth/actions';
 
 import api from '~/services/api';
 
-export default function Dashboard() {
+export default function Dashboard({ navigation }) {
   const profile = useSelector((state) => state.user.profile);
   const dispatch = useDispatch();
 
-  const [deliveries, setDeliveries] = useState({});
+  const [deliveries, setDeliveries] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showPendent, setShowPendent] = useState(true);
 
@@ -54,7 +54,7 @@ export default function Dashboard() {
     if (loading) {
       return;
     }
-    setDeliveries({});
+    setDeliveries([]);
     setLoading(true);
     try {
       const response = await api.get(`deliveryman/${profile.id}/takeaway`);
@@ -73,7 +73,7 @@ export default function Dashboard() {
     if (loading) {
       return;
     }
-    setDeliveries({});
+    setDeliveries([]);
     setLoading(true);
     try {
       const response = await api.get(`deliveryman/${profile.id}/deliveries`);
@@ -94,6 +94,12 @@ export default function Dashboard() {
 
   function handleSignOut() {
     dispatch(signOut());
+  }
+
+  function handleNavigation(delivery) {
+    navigation.navigate('Details', {
+      params: { delivery },
+    });
   }
 
   return (
@@ -161,7 +167,9 @@ export default function Dashboard() {
                           {delivery.recipient.cidade}
                         </DeliveryInfoValue>
                       </View>
-                      <TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => handleNavigation(delivery)}
+                      >
                         <DeliveryInfoTitle />
                         <DetailsText>Ver detalhes</DetailsText>
                       </TouchableOpacity>
