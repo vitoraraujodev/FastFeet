@@ -60,7 +60,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     loadDeliveries();
-    console.tron.log(profile);
   }, []);
 
   function handleSignOut() {
@@ -75,7 +74,7 @@ export default function Dashboard() {
         <DeliverymanContainer>
           <Avatar
             source={{
-              uri: profile
+              uri: profile.avatar
                 ? profile.avatar.url
                 : 'https://ui-avatars.com/api/?rounded=true&name=vitor+araujo&background=F4EFFC&color=a28fd0',
             }}
@@ -100,40 +99,41 @@ export default function Dashboard() {
             </TouchableOpacity>
           </DeliveryOptions>
         </TitleContainer>
+        {deliveries ? (
+          <Deliveries
+            data={deliveries}
+            keyExtractor={(delivery) => String(delivery.id)}
+            renderItem={({ item: delivery }) => (
+              <DeliveryContainer>
+                <DeliveryTitleContainer>
+                  <Icon name="truck" size={22} color="#7D40E7" />
+                  <DeliveryTitle>Encomenda {delivery.id}</DeliveryTitle>
+                </DeliveryTitleContainer>
 
-        <Deliveries
-          data={deliveries}
-          keyExtractor={(delivery) => String(delivery.id)}
-          renderItem={({ item: delivery }) => (
-            <DeliveryContainer>
-              <DeliveryTitleContainer>
-                <Icon name="truck" size={22} color="#7D40E7" />
-                <DeliveryTitle>Encomenda {delivery.id}</DeliveryTitle>
-              </DeliveryTitleContainer>
+                <DeliveryState delivery={delivery} />
 
-              <DeliveryState delivery={delivery} />
-
-              <DeliveryInfos>
-                <View>
-                  <DeliveryInfoTitle>Data</DeliveryInfoTitle>
-                  <DeliveryInfoValue>
-                    {format(parseISO(delivery.created_at), 'dd/MM/yyyy')}
-                  </DeliveryInfoValue>
-                </View>
-                <View>
-                  <DeliveryInfoTitle>Cidade</DeliveryInfoTitle>
-                  <DeliveryInfoValue>
-                    {delivery.recipient.cidade}
-                  </DeliveryInfoValue>
-                </View>
-                <TouchableOpacity>
-                  <DeliveryInfoTitle />
-                  <DetailsText>Ver detalhes</DetailsText>
-                </TouchableOpacity>
-              </DeliveryInfos>
-            </DeliveryContainer>
-          )}
-        />
+                <DeliveryInfos>
+                  <View>
+                    <DeliveryInfoTitle>Data</DeliveryInfoTitle>
+                    <DeliveryInfoValue>
+                      {format(parseISO(delivery.created_at), 'dd/MM/yyyy')}
+                    </DeliveryInfoValue>
+                  </View>
+                  <View>
+                    <DeliveryInfoTitle>Cidade</DeliveryInfoTitle>
+                    <DeliveryInfoValue>
+                      {delivery.recipient.cidade}
+                    </DeliveryInfoValue>
+                  </View>
+                  <TouchableOpacity>
+                    <DeliveryInfoTitle />
+                    <DetailsText>Ver detalhes</DetailsText>
+                  </TouchableOpacity>
+                </DeliveryInfos>
+              </DeliveryContainer>
+            )}
+          />
+        ) : null}
       </Container>
     </>
   );
