@@ -72,7 +72,7 @@ export const Option = styled.Text`
 
 export const Deliveries = styled.FlatList.attrs({
   showVerticalScrollIndicator: false,
-  contentContainerStyle: { padding: 20 },
+  contentContainerStyle: { padding: 20, paddingBottom: 0 },
 })``;
 
 export const DeliveryContainer = styled.View`
@@ -131,7 +131,6 @@ export const DetailsText = styled.Text`
 export const Loading = styled.View`
   flex: 1;
   align-items: center;
-
   justify-content: center;
 `;
 

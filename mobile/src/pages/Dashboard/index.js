@@ -51,9 +51,6 @@ export default function Dashboard({ navigation }) {
   const [showPendent, setShowPendent] = useState(true);
 
   async function loadDeliveries() {
-    if (loading) {
-      return;
-    }
     setDeliveries([]);
     setLoading(true);
     try {
@@ -70,9 +67,6 @@ export default function Dashboard({ navigation }) {
   }
 
   async function loadDelivered() {
-    if (loading) {
-      return;
-    }
     setDeliveries([]);
     setLoading(true);
     try {
@@ -143,6 +137,7 @@ export default function Dashboard({ navigation }) {
           <>
             {deliveries.length !== 0 ? (
               <Deliveries
+                showsVerticalScrollIndicator={false}
                 data={deliveries}
                 keyExtractor={(delivery) => String(delivery.id)}
                 renderItem={({ item: delivery }) => (

@@ -11,8 +11,10 @@ export default function New({ route, navigation }) {
   const { delivery } = route.params;
 
   const [description, setDescription] = useState('');
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit() {
+    setLoading(true);
     try {
       await api.post(`delivery/${delivery.id}/problems`, { description });
       navigation.goBack();
@@ -22,6 +24,7 @@ export default function New({ route, navigation }) {
         'Não foi possível enviar a descrição do problema. Tente mais tarde.'
       );
     }
+    setLoading(false);
   }
 
   return (
@@ -39,7 +42,7 @@ export default function New({ route, navigation }) {
             onChangeText={setDescription}
           />
         </InputContainer>
-        <Button onPress={handleSubmit} background="#7D40E7">
+        <Button loading={loading} onPress={handleSubmit} background="#7D40E7">
           Enviar
         </Button>
       </Content>

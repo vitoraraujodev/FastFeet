@@ -39,6 +39,10 @@ export default function Routes() {
           <BottomTab.Navigator
             tabBarOptions={{
               activeTintColor: '#7D40E7',
+              style: {
+                padding: 10,
+                height: 54,
+              },
             }}
           >
             <BottomTab.Screen
