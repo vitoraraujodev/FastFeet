@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 
-export const Container = styled.View`
+export const Container = styled.KeyboardAvoidingView`
   position: absolute;
   background: #7d40e7;
   top: 0;
@@ -9,7 +10,7 @@ export const Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   padding: 8px 16px;
-  height: 20%;
+  height: ${Math.round(Dimensions.get('window').height) * 0.2};
 `;
 
 export const Back = styled.TouchableOpacity`

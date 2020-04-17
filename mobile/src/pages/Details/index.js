@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StatusBar } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { format, parseISO } from 'date-fns';
 
@@ -81,7 +81,7 @@ export default function Details({ route, navigation }) {
           <Actions>
             <ActionContainer
               underlayColor="#e4e8f7"
-              onPress={() => navigation.navigate('NewProblem')}
+              onPress={() => navigation.navigate('NewProblem', { delivery })}
             >
               <Action>
                 <Icon name="close-circle-outline" size={20} color="#E74040" />
@@ -90,7 +90,7 @@ export default function Details({ route, navigation }) {
             </ActionContainer>
             <ActionContainer
               underlayColor="#e4e8f7"
-              onPress={() => navigation.navigate('ListProblem')}
+              onPress={() => navigation.navigate('ListProblem', { delivery })}
             >
               <Action>
                 <Icon name="information-outline" size={20} color="#E7BA40" />
@@ -99,7 +99,7 @@ export default function Details({ route, navigation }) {
             </ActionContainer>
             <ActionContainer
               underlayColor="#e4e8f7"
-              onPress={() => navigation.navigate('Confirm')}
+              onPress={() => navigation.navigate('Confirm', { delivery })}
             >
               <Action>
                 <Icon name="check-circle-outline" size={20} color="#7D40E7" />
