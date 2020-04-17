@@ -8,7 +8,7 @@ class DeliveryProblemController {
 
     const delivery_problems = await DeliveryProblem.findAll({ //eslint-disable-line
       where: { delivery_id: id },
-      attributes: ['id', 'description'],
+      attributes: ['id', 'description', 'created_at'],
       order: [['id', 'DESC']],
       include: [
         {

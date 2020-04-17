@@ -52,7 +52,7 @@ class DeliveryController {
         {
           model: File,
           as: 'signature',
-          attributes: ['id', 'name', 'path'],
+          attributes: ['id', 'name', 'path', 'url'],
         },
       ],
     });

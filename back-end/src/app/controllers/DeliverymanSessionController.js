@@ -14,7 +14,7 @@ class DeliverymanSessionController {
 
     const { deliveryman_id } = req.body; //eslint-disable-line
     const deliveryman = await Deliveryman.findByPk(deliveryman_id, {
-      attributes: ['id', 'name', 'email'],
+      attributes: ['id', 'name', 'email', 'created_at'],
       include: [
         {
           model: File,
