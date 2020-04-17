@@ -9,7 +9,7 @@ export const Container = styled.View`
 
 export const Content = styled.View`
   width: 85%;
-  top: ${Math.round(Dimensions.get('window').height) * 0.1};
+  top: ${Math.round(Dimensions.get('window').height) * 0.1}px;
 `;
 
 export const InputContainer = styled.View`

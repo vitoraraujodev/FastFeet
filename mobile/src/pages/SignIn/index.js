@@ -32,6 +32,7 @@ export default function SignIn() {
             autoCorrect={false}
             autoCapitalize="none"
             autoComplete="false"
+            keyboardType="numeric"
             returnKeyType="send"
             value={deliveryman_id}
             onChangeText={setDeliveryman_Id}

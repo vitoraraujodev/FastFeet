@@ -9,7 +9,7 @@ export const Container = styled.View`
 
 export const ProblemsContainer = styled.View`
   width: 85%;
-  top: ${Math.round(Dimensions.get('window').height) * 0.1};
+  top: ${Math.round(Dimensions.get('window').height) * 0.1}px;
   align-items: center;
   flex: 1;
 `;
@@ -55,6 +55,7 @@ export const Empty = styled.View`
 export const EmptyText = styled.Text`
   color: #999;
   font-size: 18px;
+  text-align: center;
 `;
 
 export const Loading = styled.View`

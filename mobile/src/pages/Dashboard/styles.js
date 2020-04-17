@@ -71,7 +71,6 @@ export const Option = styled.Text`
 `;
 
 export const Deliveries = styled.FlatList.attrs({
-  showVerticalScrollIndicator: false,
   contentContainerStyle: { padding: 20, paddingBottom: 0 },
 })``;
 
