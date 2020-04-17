@@ -10,7 +10,7 @@ export const Container = styled.KeyboardAvoidingView`
   flex-direction: row;
   justify-content: space-between;
   padding: 8px 16px;
-  height: ${Math.round(Dimensions.get('window').height) * 0.2};
+  height: ${Math.round(Dimensions.get('window').height) * 0.2}px;
 `;
 
 export const Back = styled.TouchableOpacity`

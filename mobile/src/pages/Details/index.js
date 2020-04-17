@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StatusBar } from 'react-native';
+import { Alert, View, StatusBar } from 'react-native';
+import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { format, parseISO } from 'date-fns';
 
@@ -17,10 +18,29 @@ import {
   ActionText,
 } from './styles';
 
+import api from '~/services/api';
+
 import Header from '~/components/Header';
 
 export default function Details({ route, navigation }) {
   const { delivery } = route.params;
+  const profile = useSelector((state) => state.user.profile);
+
+  async function handleTakeAway() {
+    try {
+      await api.post('takeaway', {
+        delivery_id: delivery.id,
+        deliveryman_id: profile.id,
+      });
+      navigation.navigate('Dashboard');
+      Alert.alert('Sucesso!', 'Sua encomenda foi retirada!');
+    } catch (err) {
+      Alert.alert(
+        'Erro!',
+        'Não foi possível retirar sua encomenda. Tente novamente.'
+      );
+    }
+  }
 
   return (
     <>
@@ -78,35 +98,57 @@ export default function Details({ route, navigation }) {
             </View>
           </ContentContainer>
 
-          <Actions>
-            <ActionContainer
-              underlayColor="#e4e8f7"
-              onPress={() => navigation.navigate('NewProblem', { delivery })}
-            >
-              <Action>
-                <Icon name="close-circle-outline" size={20} color="#E74040" />
-                <ActionText>Informar Problemas</ActionText>
-              </Action>
-            </ActionContainer>
-            <ActionContainer
-              underlayColor="#e4e8f7"
-              onPress={() => navigation.navigate('ListProblem', { delivery })}
-            >
-              <Action>
-                <Icon name="information-outline" size={20} color="#E7BA40" />
-                <ActionText>Visualizar Problemas</ActionText>
-              </Action>
-            </ActionContainer>
-            <ActionContainer
-              underlayColor="#e4e8f7"
-              onPress={() => navigation.navigate('Confirm', { delivery })}
-            >
-              <Action>
-                <Icon name="check-circle-outline" size={20} color="#7D40E7" />
-                <ActionText>Confirmar Entrega</ActionText>
-              </Action>
-            </ActionContainer>
-          </Actions>
+          {!delivery.end_date ? (
+            <Actions>
+              <ActionContainer
+                underlayColor="#e4e8f7"
+                onPress={() => navigation.navigate('NewProblem', { delivery })}
+              >
+                <Action>
+                  <Icon name="close-circle-outline" size={20} color="#E74040" />
+                  <ActionText>Informar Problemas</ActionText>
+                </Action>
+              </ActionContainer>
+              <ActionContainer
+                underlayColor="#e4e8f7"
+                onPress={() => navigation.navigate('ListProblem', { delivery })}
+              >
+                <Action>
+                  <Icon name="information-outline" size={20} color="#E7BA40" />
+                  <ActionText>Visualizar Problemas</ActionText>
+                </Action>
+              </ActionContainer>
+              {delivery.start_date ? (
+                <ActionContainer
+                  underlayColor="#e4e8f7"
+                  onPress={() => navigation.navigate('Confirm', { delivery })}
+                >
+                  <Action>
+                    <Icon
+                      name="check-circle-outline"
+                      size={20}
+                      color="#7D40E7"
+                    />
+                    <ActionText>Confirmar Entrega</ActionText>
+                  </Action>
+                </ActionContainer>
+              ) : (
+                <ActionContainer
+                  underlayColor="#e4e8f7"
+                  onPress={handleTakeAway}
+                >
+                  <Action>
+                    <Icon
+                      name="chevron-up-box-outline"
+                      size={20}
+                      color="#7D40E7"
+                    />
+                    <ActionText>Retirar para Entrega</ActionText>
+                  </Action>
+                </ActionContainer>
+              )}
+            </Actions>
+          ) : null}
         </Scroll>
       </Container>
     </>
